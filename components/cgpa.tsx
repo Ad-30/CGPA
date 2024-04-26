@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 import {Loader} from '@/components/loader';
 import axios from 'axios';
 export default function Cgpa() {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
   const [cgpa, setCgpa] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const handleFileChange = async (e) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const selectedFile = e.target.files[0];
+    const selectedFile = e.target.files && e.target.files[0];
     setFile(selectedFile);
     setLoading(true);
     if (!selectedFile) {
