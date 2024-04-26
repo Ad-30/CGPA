@@ -24,7 +24,7 @@ export default function Cgpa() {
     formData.append('file', selectedFile);
     try {
       const response = await axios.post(
-        'https://ad30.pythonanywhere.com/cgpa',
+        '/api/cgpa',
         formData,
         {
             headers: {
