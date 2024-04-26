@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import PDFParser from 'pdf2json';
-import { v4 as uuidv4 } from 'uuid';
 import { promisify } from 'util';
 
 export async function POST(req: NextRequest) {
@@ -29,8 +28,7 @@ export async function POST(req: NextRequest) {
             throw new Error('File not found in the request.');
         }
 
-        fileName = uuidv4();
-        const tempFilePath = `/tmp/${fileName}.pdf`;
+
         const arrayBuffer = await new Response(file as Blob).arrayBuffer();
         const fileBuffer = Buffer.from(arrayBuffer);
         const pdfParser = new (PDFParser as any)(null, 1);
