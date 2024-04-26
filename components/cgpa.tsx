@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import {Loader} from '@/components/loader';
 import axios from 'axios';
 export default function Cgpa() {
-  const [file, setFile] = useState<File | null>(null);
+ const [file, setFile] = useState<File | null>(null);
   const [cgpa, setCgpa] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ export default function Cgpa() {
     formData.append('file', selectedFile);
     try {
       const response = await axios.post(
-        '/api/cgpa',
+        'https://ad30.pythonanywhere.com/cgpa',
         formData,
         {
             headers: {
