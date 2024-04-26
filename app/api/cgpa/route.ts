@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import PDFParser from 'pdf2json';
-import { promises as fs } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import { promisify } from 'util';
 
@@ -34,11 +33,7 @@ export async function POST(req: NextRequest) {
         const tempFilePath = `/tmp/${fileName}.pdf`;
         const arrayBuffer = await new Response(file as Blob).arrayBuffer();
         const fileBuffer = Buffer.from(arrayBuffer);
-        await fs.writeFile(tempFilePath, fileBuffer);
-
         const pdfParser = new (PDFParser as any)(null, 1);
-
-
         const pdfPromise = new Promise<void>((resolve, reject) => {
           pdfParser.on('pdfParser_dataError', reject);
 
@@ -77,11 +72,10 @@ export async function POST(req: NextRequest) {
               totalCredits += 0.5;
               sgpa = totalGradePoints / totalCredits;
               sgpa = sgpa.toFixed(2);
-              // console.log("SGPA:", sgpa);
               resolve();
           });
       });
-      pdfParser.loadPDF(tempFilePath);
+      pdfParser.parseBuffer(fileBuffer);
       await pdfPromise;
       return NextResponse.json({ 'cgpa': sgpa }, { status: 200 });
     } catch (error) {
