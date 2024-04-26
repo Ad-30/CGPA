@@ -57,7 +57,7 @@ export default function Cgpa() {
             <h2 className="text-2xl font-bold mb-4">Upload Your Score Card</h2>
             <p className="text-gray-400 mb-6">To calculate your SGPA, please upload your Score Card file below.</p>
             <div className="flex items-center justify-center bg-gray-800 border-2 border-dashed border-gray-700 rounded-lg p-8 cursor-pointer hover:bg-gray-700 transition-colors">
-              <input className="sr-only" id="file-upload" type="file" onChange={handleFileChange} />
+              <input className="sr-only" id="file-upload" type="file" accept=".pdf" onChange={handleFileChange} />
               <label className="flex flex-col items-center" htmlFor="file-upload">
                 {loading ? <Loader /> : <UploadIcon className="h-8 w-8 text-gray-500 mb-2" />}
                 {!loading && <span className="text-gray-500">Click to upload</span>}
