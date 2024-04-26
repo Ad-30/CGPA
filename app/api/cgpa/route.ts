@@ -32,7 +32,8 @@ export async function POST(req: NextRequest) {
 
         fileName = uuidv4();
         const tempFilePath = `/tmp/${fileName}.pdf`;
-        const fileBuffer = Buffer.from(await file.arrayBuffer());
+        const arrayBuffer = await new Response(file as Blob).arrayBuffer();
+        const fileBuffer = Buffer.from(arrayBuffer);
         await fs.writeFile(tempFilePath, fileBuffer);
 
         const pdfParser = new (PDFParser as any)(null, 1);
