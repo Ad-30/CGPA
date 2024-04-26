@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
                 } 
               }
               const lines = parsedText.split('\n');
-              const remarksIndex = lines.findIndex(line => line.includes("REMARKS"));
+              const remarksIndex = lines.findIndex((line: string) => line.includes("REMARKS"));
               let concatenatedString = '';
               if (remarksIndex > 0) {
                 const lineBeforeRemarks = lines[remarksIndex - 1];
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
               totalCredits += 0.5;
               sgpa = totalGradePoints / totalCredits;
               sgpa = sgpa.toFixed(2);
-              console.log("SGPA:", sgpa);
+              // console.log("SGPA:", sgpa);
               resolve();
           });
       });
