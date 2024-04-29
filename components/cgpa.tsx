@@ -1,10 +1,10 @@
 
 'use client'
 import React, { useState } from 'react';
-import {Loader} from '@/components/loader';
+import { Loader } from '@/components/loader';
 import axios from 'axios';
 export default function Cgpa() {
- const [file, setFile] = useState<File | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [cgpa, setCgpa] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,17 +24,23 @@ export default function Cgpa() {
     formData.append('file', selectedFile);
     try {
       const response = await axios.post(
-        'https://ad30.pythonanywhere.com/cgpa',
+        // 'https://ad30.pythonanywhere.com/cgpa',
+        '/api/te/',
         formData,
         {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         }
       );
       if (response.data && response.data.cgpa) {
-        setCgpa(response.data.cgpa);
-        setError('');
+        if (response.data.cgpa === 'NaN') {
+          setError('Invalid Request.');
+        } else {
+          console.log(response.data.cgpa);
+          setCgpa(response.data.cgpa);
+          setError('');
+        }
       } else {
         setError('Error calculating CGPA. Please try again.');
       }
@@ -45,7 +51,7 @@ export default function Cgpa() {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-950 text-gray-50">
       <header className="bg-gray-900 py-4 px-6">
@@ -65,22 +71,22 @@ export default function Cgpa() {
             </div>
           </div>
           {cgpa &&
-          <div className="bg-gray-900 rounded-lg shadow-md p-8">
-            <h2 className="text-2xl font-bold mb-4">Your SGPA</h2>
-            <div className="flex items-center justify-center text-6xl font-bold text-gray-50">{cgpa}</div>
-            <p className="text-gray-400 mt-4">
-              Your Semester Grade Point Average (SGPA) is calculated based on the grades and credits of the courses you
-              have taken this semester.
-            </p>
-          </div>}
-          {error && 
+            <div className="bg-gray-900 rounded-lg shadow-md p-8">
+              <h2 className="text-2xl font-bold mb-4">Your SGPA</h2>
+              <div className="flex items-center justify-center text-6xl font-bold text-gray-50">{cgpa}</div>
+              <p className="text-gray-400 mt-4">
+                Your Semester Grade Point Average (SGPA) is calculated based on the grades and credits of the courses you
+                have taken this semester.
+              </p>
+            </div>}
+          {error &&
             <div className="bg-red-500 rounded-lg shadow-md p-8 relative overflow-hidden">
               <div className="absolute inset-0 bg-red-500 opacity-10 animate-pulse" />
-                <div className="relative z-10 flex items-center justify-between">
-                  <div>
-                    <h2 className="text-2xl font-bold mb-2">Error</h2>
-                    <p className="text-gray-200">{error}</p>
-                  </div>
+              <div className="relative z-10 flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold mb-2">Error</h2>
+                  <p className="text-gray-200">{error}</p>
+                </div>
                 {/* <div className="h-1 bg-gray-200 rounded-full w-full absolute bottom-0 left-0 animate-timer" /> */}
               </div>
             </div>
