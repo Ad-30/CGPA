@@ -24,8 +24,7 @@ export default function Cgpa() {
     formData.append('file', selectedFile);
     try {
       const response = await axios.post(
-        // 'https://ad30.pythonanywhere.com/cgpa',
-        '/api/cgpa',
+        'https://ad30.pythonanywhere.com/cgpa',
         formData,
         {
             headers: {
@@ -40,7 +39,7 @@ export default function Cgpa() {
         setError('Error calculating CGPA. Please try again.');
       }
     } catch (error) {
-      console.log( error);
+      // console.error('Error fetching CGPA:', error);
       setError('Invalid Request.');
     } finally {
       setLoading(false);

@@ -77,11 +77,6 @@ export async function POST(req: NextRequest) {
       await pdfPromise;
       return NextResponse.json({ 'cgpa': sgpa }, { status: 200 });
     } catch (error) {
-        console.log(error);
         return NextResponse.json({ message: "Invalid Request", error }, { status: 500 });
     }
-}
-
-export async function GET(req: NextRequest) {
-  return NextResponse.json({ message: "Try POST method"}, { status: 200 });
 }
