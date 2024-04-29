@@ -81,3 +81,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Invalid Request", error }, { status: 500 });
     }
 }
+
+export async function GET(req: NextRequest) {
+  return NextResponse.json({ message: "Try POST method"}, { status: 200 });
+}
