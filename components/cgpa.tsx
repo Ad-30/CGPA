@@ -40,7 +40,7 @@ export default function Cgpa() {
         setError('Error calculating CGPA. Please try again.');
       }
     } catch (error) {
-      // console.error('Error fetching CGPA:', error);
+      console.log( error);
       setError('Invalid Request.');
     } finally {
       setLoading(false);
